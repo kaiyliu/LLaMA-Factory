@@ -1,0 +1,32 @@
+### model
+model_name_or_path: deepseek-ai/DeepSeek-R1-Distill-Qwen-7B
+
+### method
+stage: dpo
+simpo_gamma: 0.3 # 0.3， 0.5， 1.0
+pref_beta: 2.0 # 2.0， 2.5
+pref_loss: simpo  # choices: [sigmoid (dpo), orpo, simpo]
+
+### dataset
+dataset: NovaSky-AI/Sky-T1_preference_data_10k
+cutoff_len: 1024
+max_samples: 1000
+overwrite_cache: true
+preprocessing_num_workers: 16
+
+### output
+output_dir: saves/deepseek-ai/DeepSeek-R1-Distill-Qwen-7B/dpo/simpo
+logging_steps: 10
+save_steps: 500
+plot_loss: true
+overwrite_output_dir: true
+
+### train
+per_device_train_batch_size: 1
+gradient_accumulation_steps: 8
+learning_rate: 5.0e-7 # {1 e-7，5e-7，1 e-6}
+num_train_epochs: 3.0
+lr_scheduler_type: cosine
+warmup_ratio: 0.1
+bf16: true
+ddp_timeout: 180000000
